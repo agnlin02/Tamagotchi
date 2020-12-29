@@ -9,9 +9,11 @@ namespace Tamagotchi
     {
         private int hunger = 10;
         private int boredom = 10;
-        private List<string> words = new List<string>();
+        private List<string> words = new List<string>() {"Hello"};
         private bool isAlive;
         private Random generator = new Random();
+        int randomWord;
+   
         public string name;
 
         public void Feed()
@@ -20,7 +22,8 @@ namespace Tamagotchi
         }
         public void Hi()
         {
-            int randomWord = generator.Next(words.Count);
+            
+            randomWord = generator.Next(words.Count);
             Console.WriteLine(words[randomWord]);
             Console.ReadLine();
 

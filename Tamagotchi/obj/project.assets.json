@@ -1,37 +1,38 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    "net5.0": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\agnes.lindencrona\\.nuget\\packages\\": {}
+    "C:\\Users\\elev\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\agnes.lindencrona\\Documents\\Programering\\Tamagotchi\\Tamagotchi\\Tamagotchi.csproj",
+      "projectUniqueName": "C:\\Users\\elev\\Documents\\GitHub\\Tamagotchi\\Tamagotchi\\Tamagotchi.csproj",
       "projectName": "Tamagotchi",
-      "projectPath": "C:\\Users\\agnes.lindencrona\\Documents\\Programering\\Tamagotchi\\Tamagotchi\\Tamagotchi.csproj",
-      "packagesPath": "C:\\Users\\agnes.lindencrona\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\agnes.lindencrona\\Documents\\Programering\\Tamagotchi\\Tamagotchi\\obj\\",
+      "projectPath": "C:\\Users\\elev\\Documents\\GitHub\\Tamagotchi\\Tamagotchi\\Tamagotchi.csproj",
+      "packagesPath": "C:\\Users\\elev\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\elev\\Documents\\GitHub\\Tamagotchi\\Tamagotchi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\agnes.lindencrona\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\elev\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "netcoreapp3.1"
+        "net5.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net5.0": {
+          "targetAlias": "net5.0",
           "projectReferences": {}
         }
       },
@@ -42,7 +43,8 @@
       }
     },
     "frameworks": {
-      "netcoreapp3.1": {
+      "net5.0": {
+        "targetAlias": "net5.0",
         "imports": [
           "net461",
           "net462",
@@ -58,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

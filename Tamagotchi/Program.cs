@@ -12,6 +12,7 @@ namespace Tamagotchi
             int usernumber = 0;
             bool succes = int.TryParse(svar, out usernumber);
             Tamagotchi minTimagotchi = new Tamagotchi();
+            Shop shop = new Shop();
 
             while(true)
             {
@@ -20,6 +21,7 @@ namespace Tamagotchi
             System.Console.WriteLine("2. Mata min Tamagutchi");
             System.Console.WriteLine("3. Prata med min Tamaguchi");
             System.Console.WriteLine("4. Stats för Gutchi");
+            System.Console.WriteLine("5. SHOP!");
             svar = Console.ReadLine();
 
             if ( svar == "1")
@@ -44,6 +46,11 @@ namespace Tamagotchi
             {   
                 System.Console.WriteLine("Det här är dina stats: ");
                 minTimagotchi.PrintStats();
+            }
+               else if(svar == "5")
+            {   
+                System.Console.WriteLine("Shop!");
+                shop.printStuff();
             }
 
             }     

@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Tamagotchi/bin/Debug/netcoreapp3.1/Tamagotchi.dll",
+            "program": "${workspaceFolder}/Tamagotchi/bin/Debug/net5.0/Tamagotchi.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Tamagotchi",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
