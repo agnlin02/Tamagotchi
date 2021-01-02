@@ -10,9 +10,13 @@ namespace Tamagotchi
         private int hunger = 10;
         private int boredom = 10;
         private List<string> words = new List<string>() {"Hello"};
+        // public List<string> inventory = new List<string>() {};
         private bool isAlive;
         private Random generator = new Random();
         int randomWord;
+        Shop shops = new Shop();
+
+        
    
         public string name;
 
@@ -66,7 +70,19 @@ namespace Tamagotchi
        
         private void ReduceBoredom()
         {
-            boredom -= 2;
+            boredom += 2;
+        }
+
+        public void Inventory()
+        {
+
+            System.Console.WriteLine(shops.inventory.Count);
+            //    foreach (string i in inventory)
+            // {
+            //     System.Console.WriteLine(i);  //Du ska kunna foreach...det är kortare än en for loop, fast bara på listor (inte arrayer) :)
+            // }
+
+            Console.ReadLine();
         }
     }
 

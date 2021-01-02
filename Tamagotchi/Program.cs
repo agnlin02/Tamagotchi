@@ -22,6 +22,7 @@ namespace Tamagotchi
             System.Console.WriteLine("3. Prata med min Tamaguchi");
             System.Console.WriteLine("4. Stats för Gutchi");
             System.Console.WriteLine("5. SHOP!");
+            System.Console.WriteLine("6. inventory");
             svar = Console.ReadLine();
 
             if ( svar == "1")
@@ -51,6 +52,12 @@ namespace Tamagotchi
             {   
                 System.Console.WriteLine("Shop!");
                 shop.printStuff();
+                shop.choice();
+            }
+            else if (svar == "6")
+            {
+                System.Console.WriteLine("ditt inventory: ");
+                minTimagotchi.Inventory();
             }
 
             }     
