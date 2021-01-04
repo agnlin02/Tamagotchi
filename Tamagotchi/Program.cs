@@ -16,13 +16,14 @@ namespace Tamagotchi
 
             while(true)
             {
+            minTimagotchi.Tick();
             System.Console.WriteLine("Vad vill du göra?");
-            System.Console.WriteLine("1. Lära min Tamaguchi ett ord");
-            System.Console.WriteLine("2. Mata min Tamagutchi");
-            System.Console.WriteLine("3. Prata med min Tamaguchi");
-            System.Console.WriteLine("4. Stats för Gutchi");
-            System.Console.WriteLine("5. SHOP!");
-            System.Console.WriteLine("6. inventory");
+            System.Console.WriteLine("1. Lära min Tamaguchi ett ord"); //Funkar
+            System.Console.WriteLine("2. Mata min Tamagutchi"); //Kan inte få items att funka
+            System.Console.WriteLine("3. Prata med min Tamaguchi"); //Funkar
+            System.Console.WriteLine("4. Stats för Gutchi"); //Funkar - isAlive bool
+            System.Console.WriteLine("5. SHOP!"); //Funkar
+            System.Console.WriteLine("6. inventory"); //Funkar
             svar = Console.ReadLine();
 
             if ( svar == "1")
@@ -57,7 +58,7 @@ namespace Tamagotchi
             else if (svar == "6")
             {
                 System.Console.WriteLine("ditt inventory: ");
-                minTimagotchi.Inventory();
+                shop.Inventory();
             }
 
             }     

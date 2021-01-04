@@ -1,7 +1,9 @@
+using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using System.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Tamagotchi
 {
@@ -22,7 +24,48 @@ namespace Tamagotchi
 
         public void Feed()
         {
-            hunger += 2;
+            
+            bool containChokolate = shops.inventory.Contains(shops.inventory[0]);
+            bool containLakris = shops.inventory.Contains(shops.inventory[1]);
+            
+            if (containChokolate == true || containLakris == true)
+            {
+                if(containChokolate == true)
+                {System.Console.WriteLine("Vill du använda din choklad? [Y/N]");
+                string svar = Console.ReadLine();
+                if (svar.ToUpper()=="Y")
+                {
+                    System.Console.WriteLine("Du använde choklad. Hunger gick upp 4");
+                    hunger += 2;
+                    Console.ReadLine();
+                    shops.inventory.Remove(shops.inventory[0]);
+                    
+                }
+                else if(svar.ToUpper()=="N")
+                    {
+                        System.Console.WriteLine("ok. hungern gick bara upp 2");
+                    }
+                    Console.ReadLine();
+                }
+                    else if( containLakris == true)
+                    {
+                        System.Console.WriteLine("....Lakris är inte gott..alls \nDin hunger gick ned 1-");
+                        hunger -=1;
+                        shops.inventory.Remove(shops.inventory[1]);
+                    }
+
+            //           if(shops.posessed == true)
+            // {
+            //     System.Console.WriteLine("Ditt sak var förbannad. Hungern gick ner 4-");
+            //     hunger -=4;
+            // }
+                
+            }
+            else{
+                hunger += 2;
+            }
+            
+            
         }
         public void Hi()
         {
@@ -72,18 +115,7 @@ namespace Tamagotchi
         {
             boredom += 2;
         }
-
-        public void Inventory()
-        {
-
-            System.Console.WriteLine(shops.inventory.Count);
-            //    foreach (string i in inventory)
-            // {
-            //     System.Console.WriteLine(i);  //Du ska kunna foreach...det är kortare än en for loop, fast bara på listor (inte arrayer) :)
-            // }
-
-            Console.ReadLine();
+        
         }
-    }
 
 }

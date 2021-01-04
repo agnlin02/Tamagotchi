@@ -11,14 +11,17 @@ namespace Tamagotchi
 {
     public class Shop
     {
-        bool posessed;
+       // public bool posessed;
+         
         public int money = 15;
-        public List<string> stuff = new List<string>(){"hatt", "mat", "arg Lakris"};
+        public int svarShop;
+        public List<string> stuff = new List<string>(){"Choklad", "arg Lakris"};
         private List<int> prizes = new List<int>(){10, 3, 1};
         public List<int> likables = new List<int>(){5, 2, -1};
         public List<string> inventory = new List<string>() {};
         private Random generator = new Random();
-        int isPosessed;
+      
+        //int isPosessed;
        // Tamagotchi tamagotchi = new Tamagotchi();
 
 
@@ -34,34 +37,32 @@ namespace Tamagotchi
 
 
         public void choice(){  
-            string isPosessedString;
+            //  string isPosessedString;
           
 
-            posessed = IsPosessed();
-            if(posessed == true)
-            {
-                isPosessedString = "Ja";
-            }
-            else
-            {
-                isPosessedString = "nej";
-            }
+            // posessed = IsPosessed();
+            // if(posessed == true)
+            // {
+            //     isPosessedString = "Ja";
+            // }
+            // else
+            // {
+            //     isPosessedString = "nej";
+            // }
 
             string svarString = Console.ReadLine();
-            int svar;
-            bool lyckad = int.TryParse(svarString, out svar);
+            
+            bool lyckad = int.TryParse(svarString, out svarShop);
 
-            if(svar == 0){
-                System.Console.WriteLine("Sak: " + stuff[0] + "\nLikable: " + likables[svar] +  "\npris: " + prizes[svar] + "\nÄr den förbannad? " + isPosessedString); //Lägg till om den är posessed 
+            if(svarShop == 0){
+                System.Console.WriteLine("Sak: " + stuff[0] + "\nLikable: " + likables[svarShop] +  "\npris: " + prizes[svarShop]); //Lägg till om den är posessed ... + "\nÄr den förbannad? " + isPosessedString
             }
-             if(svar == 1){
-                System.Console.WriteLine("Sak: " + stuff[1] + "\nLikable: " + likables[svar] +  "\npris: " + prizes[svar]  + "\nÄr den förbannad? " + isPosessedString); 
+             if(svarShop == 1){
+                System.Console.WriteLine("Sak: " + stuff[1] + "\nLikable: " + likables[svarShop] +  "\npris: " + prizes[svarShop]); // + "\nÄr den förbannad? " + isPosessedString 
             }
-             if(svar == 2){
-                System.Console.WriteLine("Sak: " + stuff[2] + "\nlikable: " + likables[svar] +  "\npris: " + prizes[svar]  + "\nÄr den förbannad? " + isPosessedString); 
-            }
+            
             Console.ReadLine();
-            Buy(svar);
+            Buy(svarShop);
         }
 
         public void Buy(int svar){
@@ -70,8 +71,10 @@ namespace Tamagotchi
             if (svarString.ToUpper() == "Y") 
             {
                money =  money - prizes[svar];            
-               System.Console.WriteLine(money);
-               inventory.Add("woop");
+               System.Console.WriteLine("Pengar kvar: "+ money);
+                inventory.Add(stuff[svarShop]);
+               System.Console.WriteLine(inventory.Count);
+               
             }
             else if (svarString.ToUpper() == "N")
             {
@@ -79,27 +82,36 @@ namespace Tamagotchi
             }
         }
 
-        public bool IsPosessed()
+             public void Inventory()
         {
+            foreach (string i in inventory)
+            {
+                System.Console.WriteLine(i);
+            }
+            Console.ReadLine();
+        }
 
-            isPosessed = generator.Next(2);
+        // public bool IsPosessed()
+        // {
+
+        //     isPosessed = generator.Next(2);
         
-            if (isPosessed == 1)
-            {
-                posessed = true;
-                return posessed;
-            }
-            else if (isPosessed == 0)
-            {
-                posessed = false;
-                return posessed;
-            }
-            else {
-                return posessed;
-            }
+        //     if (isPosessed == 1)
+        //     {
+        //         posessed = true;
+        //         return posessed;
+        //     }
+        //     else if (isPosessed == 0)
+        //     {
+        //         posessed = false;
+        //         return posessed;
+        //     }
+        //     else {
+        //         return posessed;
+        //     }
             
                 
-        }
+        // }
 
 
     }
