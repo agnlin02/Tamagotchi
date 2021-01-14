@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.ComponentModel;
+using System.Linq;
 
 
 
@@ -18,7 +19,7 @@ namespace Tamagotchi
         public List<string> stuff = new List<string>(){"Choklad", "arg Lakris"};
         private List<int> prizes = new List<int>(){10, 3, 1};
         public List<int> likables = new List<int>(){5, 2, -1};
-        public List<string> inventory = new List<string>() {};
+       
         private Random generator = new Random();
       
         //int isPosessed;
@@ -36,7 +37,7 @@ namespace Tamagotchi
         }
 
 
-        public void choice(){  
+        public void choice(Tamagotchi tam){  
             //  string isPosessedString;
           
 
@@ -57,23 +58,23 @@ namespace Tamagotchi
             if(svarShop == 0){
                 System.Console.WriteLine("Sak: " + stuff[0] + "\nLikable: " + likables[svarShop] +  "\npris: " + prizes[svarShop]); //Lägg till om den är posessed ... + "\nÄr den förbannad? " + isPosessedString
             }
-             if(svarShop == 1){
-                System.Console.WriteLine("Sak: " + stuff[1] + "\nLikable: " + likables[svarShop] +  "\npris: " + prizes[svarShop]); // + "\nÄr den förbannad? " + isPosessedString 
+             else if(svarShop == 1){
+                System.Console.WriteLine("Sak: " + stuff[1] + "\nLikable: " + likables[svarShop] +  "\npris: " + prizes[svarShop]); // + "\nÄr den förbannad? " + isPosessedString
             }
-            
             Console.ReadLine();
-            Buy(svarShop);
+            Buy(svarShop, tam);
         }
 
-        public void Buy(int svar){
+        public void Buy(int svar, Tamagotchi tam){
+            
             System.Console.WriteLine("Vill du köpa? [Y/N]");
             string svarString = Console.ReadLine();
             if (svarString.ToUpper() == "Y") 
             {
                money =  money - prizes[svar];            
                System.Console.WriteLine("Pengar kvar: "+ money);
-                inventory.Add(stuff[svarShop]);
-               System.Console.WriteLine(inventory.Count);
+                tam.inventory.Add(stuff[svarShop]);
+               System.Console.WriteLine(tam.inventory.Count);
                
             }
             else if (svarString.ToUpper() == "N")
@@ -82,14 +83,7 @@ namespace Tamagotchi
             }
         }
 
-             public void Inventory()
-        {
-            foreach (string i in inventory)
-            {
-                System.Console.WriteLine(i);
-            }
-            Console.ReadLine();
-        }
+          
 
         // public bool IsPosessed()
         // {
