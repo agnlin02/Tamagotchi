@@ -28,8 +28,8 @@ namespace Tamagotchi
         public void Feed()
         {
 
-            bool containChokolate = inventory.Contains(shops.stuff[0]);
-            bool containLakris = inventory.Contains(shops.stuff[1]);
+            bool containChokolate = inventory.Contains(shops.shopShelf[0]);
+            bool containLakris = inventory.Contains(shops.shopShelf[1]);
 
             if (containChokolate == true || containLakris == true)
             {
@@ -37,6 +37,11 @@ namespace Tamagotchi
                 {
                     System.Console.WriteLine("Vill du använda din choklad? [Y/N]");
                     string svar = Console.ReadLine();
+
+
+                    svar = shops.InvalidAnswer(svar, "Y", "N");
+
+
                     if (svar.ToUpper() == "Y")
                     {
                         System.Console.WriteLine("Du använde choklad. Hunger gick upp 4");
@@ -48,22 +53,30 @@ namespace Tamagotchi
                     else if (svar.ToUpper() == "N")
                     {
                         System.Console.WriteLine("ok. hungern gick bara upp 2");
+                        hunger += 2;
                     }
                     Console.ReadLine();
                 }
-                else if (containLakris == true)
+
+                if (containLakris == true)
                 {
-                    System.Console.WriteLine("....Lakris är inte gott..alls \nDin hunger gick ned 1-");
-                    hunger -= 1;
-                    inventory.Remove(inventory[1]);
+                    System.Console.WriteLine("Vill du använda din Lakris? [Y/N]");
+                    string svar = Console.ReadLine();
+                    if (svar.ToUpper() == "Y")
+                    {
+                        System.Console.WriteLine("Du använde Lakris.");
+                        System.Console.WriteLine("....Lakris är inte gott..alls \nDin hunger gick ned 1-");
+                        hunger -= 1;
+                        inventory.Remove(inventory[shops.svarShop]);
+
+                    }
+                    else if (svar.ToUpper() == "N")
+                    {
+                        System.Console.WriteLine("ok. hungern gick bara upp 2");
+                        hunger += 2;
+                    }
+                    Console.ReadLine();
                 }
-
-                //           if(shops.posessed == true)
-                // {
-                //     System.Console.WriteLine("Ditt sak var förbannad. Hungern gick ner 4-");
-                //     hunger -=4;
-                // }
-
             }
             else
             {
@@ -76,6 +89,10 @@ namespace Tamagotchi
 
 
         }
+
+
+
+
         public void Hi()
         {
 
