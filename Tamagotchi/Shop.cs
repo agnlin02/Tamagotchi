@@ -10,33 +10,52 @@ using System.Linq;
 
 namespace Tamagotchi
 {
-    public class Shop
+    public class Shop //En klass som fungerar som en affär. Användaren sak kunna köpa olika objekt med olika egenskaper. Detta är en sperat
+    //klass eftersom den ska kunna nås genom hela spelet, även om fler tamagutchis skapas ska affären fortfarande vara samma affär. Det är 
+    //Dessutom public då den behövs nås i både "game" klassen och "tamagutchi" klassen.
     {
 
-        public int money = 15;
-        public int svarShop;
-        public List<string> shopShelf = new List<string>() { "Choklad", "arg Lakris" };
-        private List<int> prizes = new List<int>() { 10, 3, 1 };
-        public List<int> likables = new List<int>() { 5, 2, -1 };
+        private int money = 15; //Variabel för pengar som användaren kan köpa för. Den är prvat då den bara behövs användas i lokala uträkningar.
+        public int svarShop; // En int som är ett svar som bara används i affären. Dock är den publik eftersom den även används i tamagutchi
+        //klassen när den ska använda samma objekt som finns i affären. Eftersom de befinner sig på samma plats används SvarShop variabeln
+        //för att bestämma rätt plats.  
+        public List<string> shopShelf = new List<string>() { "Choklad", "arg Lakris" }; //En lista som innehåller alla objekt som finns i
+        //shoppen. Den är public eftersom den även används i klassen tamagutchi i komandor "contain" som kollar om användarens inventory har 
+        //samma objekt som finns i shopen (föklaras mer utförligt vid det kodblocket). 
+        private List<int> prizes = new List<int>() { 10, 1 }; //Det här är en lista som räknar upp priset för det som finns i afären. Den är 
+        //private eftersom den bara används lokalt. 
+        private List<int> likables = new List<int>() { 5, -1 }; //Det här är en lista som räknar upp älskvärdheten för det som finns i afären.
+        // Den är private eftersom den bara används lokalt. 
 
-        private Random generator = new Random();
 
 
 
-
-        public void PrintStuff()
+        private void PrintShelf() //Detta är en mycket enkel metod som enbart räknar upp de string som finns i shopShelf listan. Dens syfte är 
+        //Att låta användaren veta vad hen kan köpa. Detta gör den genom en for loop. En foorloop går ut på att räkna upp kodblocket under 
+        //Ett speciellet antal gånger. Denna forloop körs så många gånger som det finns objet i listan. Den använder en foorloop och inte en 
+        //forechloop eftersom den både är tänkt att räkna upp platsen som objektet befinner sig på och själva objektet. Ifall bara objektet 
+        //skulle räknas upp hade en foreachLoop fungerat bättre eftersom den är kortare. 
         {
             System.Console.WriteLine("Dina Pengar: " + money);
             for (int u = 0; u < shopShelf.Count; u++)
             {
-                System.Console.WriteLine(u + ". " + shopShelf[u]);  //Du ska kunna foreach...det är kortare än en for loop, fast bara på listor (inte arrayer) :)
+                System.Console.WriteLine(u + ". " + shopShelf[u]); 
             }
         }
 
 
-        public void Choice(Tamagotchi tam)
+        public void Choice(Tamagotchi tam) //Denna metod har som syfte att räkna upp och ge de val och dess egenslkaper såsom kostnad och  
+        //hur mycket tamagutchin gillar objektet. Metoden använder sig av en parameter instansen "Tam". Detta är för att kunna skicka in den i
+        //Metoden "Buy" där användningen för parametern föklaras mer utförligt. Metoden är public eftersom den behöver nås i klassen "Game"
+        //Där själva spelet körs. Desutom är det en void eftersom ingenting behövs retuneras. Först anroppar den metoden PrintShelf vilket är
+        //En klass som har som uppgift att skriva ut de objekt som finns i afärrshyllan (beskrivs mer utföligt ovan). Därefter får användaren
+        //Valet att välja mellan de olika objekten genom en string. Stringen omvandlas till en int genom en trypars. Detta är användbart för
+        //att kunna använda svaret spelaren skrev in till att ta fram det objekt som finns i de olika listorna över objekten och dess egenskaper.
+        //Därefter skrivs alla egenskaper över objektet upp såsom pris och vad hur mycket den gillas av användaresn gutchi. Tillsisst anroppas
+        //Metoden Buy som låter användaren bekräfta köpet. Här används även parametern som skickas in i metoden. 
         {
-
+            PrintShelf();
+                System.Console.WriteLine("Vilken vill du titta närmare på?");
             string svarString = Console.ReadLine();
 
             svarString = InvalidAnswer(svarString, "0", "1");
@@ -45,29 +64,39 @@ namespace Tamagotchi
 
             if (svarShop == 0)
             {
-                System.Console.WriteLine("Sak: " + shopShelf[0] + "\nLikable: " + likables[svarShop] + "\npris: " + prizes[svarShop]); //Lägg till om den är posessed ... + "\nÄr den förbannad? " + isPosessedString
+                System.Console.WriteLine("Sak: " + shopShelf[0] + "\nÄlskvärd nivå: " + likables[svarShop] + "\npris: " + prizes[svarShop]); //Lägg till om den är posessed ... + "\nÄr den förbannad? " + isPosessedString
             }
             else if (svarShop == 1)
             {
-                System.Console.WriteLine("Sak: " + shopShelf[1] + "\nLikable: " + likables[svarShop] + "\npris: " + prizes[svarShop]); // + "\nÄr den förbannad? " + isPosessedString
+                System.Console.WriteLine("Sak: " + shopShelf[1] + "\nÄlskvärd nivå: " + likables[svarShop] + "\npris: " + prizes[svarShop]); // + "\nÄr den förbannad? " + isPosessedString
             }
             Console.ReadLine();
-            Buy(svarShop, tam);
+            Buy(tam);
         }
 
 
-        public void Buy(int svar, Tamagotchi tam) 
+        private void Buy(Tamagotchi tam) //Den här metoden har som uppgift att ge valet till användaren om den vill köpa objektet eller 
+        //inte. Om spelaren väljer att köpa det läggs det in i spelarens inventory som sedan kan användas. Metoden är igentligen en del av 
+        //choises metoden, men jag gjord eden separat eftersom den focuserade på ett eget område. Genom att dela upp det i två var det mindre kod
+        //per metod vilket dessutom gjorde det lättare att få en god överblick över koden. Metoden tar även in en paramter.
+        //Eftersom inventory finns i tamagutchii klassen behöver vi skapa en instans för att komma åt inventory. Eftersom en ny tamagutchi
+        //inte ska skapas behövs en redan befintliga tamagutchin refereras till. Anars skulle objektet som användaren köppte läggas in i ett
+        //Separat inventory i en annan tamagutchi, och man skulle därför inte kunna använda objektert. Metoden är en void eftersom ingenting
+        //behövs retuneras. Metoden har som uppgift att bekräfta valet av köpet och lägga in obejtet i inventoryt. Desutom är den Privet då
+        //metoden bara används inom klassen "Shop" och inte behövs nå utanför. 
         {
 
             System.Console.WriteLine("Vill du köpa? [Y/N]");
             string svarString = Console.ReadLine();
-            svarString = InvalidAnswer(svarString, "Y", "N");
+            svarString = InvalidAnswer(svarString, "Y", "N"); //Den anropar metoden invalid answer för att säkerställa att spelaren inte skriver 
+            //In ett ogilltigt svar. Den skickar in tre parametrar. Svarstring = svaret som sanvändaren skriver in, och de två giltiga svaren
+            //Y och N
 
             if (svarString.ToUpper() == "Y")
             {
-                money = money - prizes[svar];
+                money = money - prizes[svarShop];
                 System.Console.WriteLine("Pengar kvar: " + money);
-                tam.inventory.Add(shopShelf[svarShop]);
+                tam.inventory.Add(shopShelf[svarShop]); 
                 System.Console.WriteLine("Antal saker i ditt inventory: " + tam.inventory.Count);
 
             }

@@ -57,7 +57,6 @@ namespace Tamagotchi
                     else if (svar == "5")
                     {
                         System.Console.WriteLine("Shop!");
-                        shop.PrintStuff();
                         shop.Choice(minTimagotchi);
                     }
                     else if (svar == "6")
