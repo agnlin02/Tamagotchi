@@ -12,13 +12,12 @@ namespace Tamagotchi
 {
     public class Shop //En klass som fungerar som en affär. Användaren sak kunna köpa olika objekt med olika egenskaper. Detta är en sperat
     //klass eftersom den ska kunna nås genom hela spelet, även om fler tamagutchis skapas ska affären fortfarande vara samma affär. Det är 
-    //Dessutom public då den behövs nås i både "game" klassen och "tamagutchi" klassen.
+    //Dessutom public då den behövs nås i både "game" klassen och "tamagutchi" klassen. Syftet med denna klass är att kunna skapa mer gameplay
+    //och en mer interaktivt spel. Genom att kunna skapa en shop har spelaren mer möjlighet att interagera med spelet och påverka dess "handling"
     {
 
         private int money = 15; //Variabel för pengar som användaren kan köpa för. Den är prvat då den bara behövs användas i lokala uträkningar.
-        public int svarShop; // En int som är ett svar som bara används i affären. Dock är den publik eftersom den även används i tamagutchi
-        //klassen när den ska använda samma objekt som finns i affären. Eftersom de befinner sig på samma plats används SvarShop variabeln
-        //för att bestämma rätt plats.  
+        private int svarShop; // En int som är ett svar som bara används i affären. Den är den privat eftersom den även används bara lokalt
         public List<string> shopShelf = new List<string>() { "Choklad", "arg Lakris" }; //En lista som innehåller alla objekt som finns i
         //shoppen. Den är public eftersom den även används i klassen tamagutchi i komandor "contain" som kollar om användarens inventory har 
         //samma objekt som finns i shopen (föklaras mer utförligt vid det kodblocket). 
@@ -44,7 +43,7 @@ namespace Tamagotchi
         }
 
 
-        public void Choice(Tamagotchi tam) //Denna metod har som syfte att räkna upp och ge de val och dess egenslkaper såsom kostnad och  
+        public void ShopChoice(Tamagotchi tam) //Denna metod har som syfte att räkna upp och ge de val och dess egenslkaper såsom kostnad och  
         //hur mycket tamagutchin gillar objektet. Metoden använder sig av en parameter instansen "Tam". Detta är för att kunna skicka in den i
         //Metoden "Buy" där användningen för parametern föklaras mer utförligt. Metoden är public eftersom den behöver nås i klassen "Game"
         //Där själva spelet körs. Desutom är det en void eftersom ingenting behövs retuneras. Först anroppar den metoden PrintShelf vilket är
@@ -77,7 +76,7 @@ namespace Tamagotchi
 
         private void Buy(Tamagotchi tam) //Den här metoden har som uppgift att ge valet till användaren om den vill köpa objektet eller 
         //inte. Om spelaren väljer att köpa det läggs det in i spelarens inventory som sedan kan användas. Metoden är igentligen en del av 
-        //choises metoden, men jag gjord eden separat eftersom den focuserade på ett eget område. Genom att dela upp det i två var det mindre kod
+        //Shopchoises metoden, men jag gjord eden separat eftersom den focuserade på ett eget område. Genom att dela upp det i två var det mindre kod
         //per metod vilket dessutom gjorde det lättare att få en god överblick över koden. Metoden tar även in en paramter.
         //Eftersom inventory finns i tamagutchii klassen behöver vi skapa en instans för att komma åt inventory. Eftersom en ny tamagutchi
         //inte ska skapas behövs en redan befintliga tamagutchin refereras till. Anars skulle objektet som användaren köppte läggas in i ett
