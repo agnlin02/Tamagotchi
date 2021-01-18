@@ -15,8 +15,10 @@ namespace Tamagotchi
         string svar = "";
         private int hunger = 10;
         private int boredom = 10;
-        private List<string> words = new List<string>() { "Hello" }; //Lisra eftersom den är dynamsik
-        public List<string> inventory = new List<string>() { };
+        private List<string> words = new List<string>() { "Hello" }; //Detta är en lista eftersom fler ord ska kunna läggas in. Listor
+        //är dynamiska och kan därför ändras efter ord som läggs in. 
+        public List<string> inventory = new List<string>() { };//Detta är en lista eftersom fler föremål ska kunna läggas in. Listor
+        //är dynamiska och kan därför ändras efter föremål som läggs in. 
         public bool isAlive = true;
         private Random generator = new Random();
         int randomWord;
@@ -28,7 +30,9 @@ namespace Tamagotchi
         //genom att köra kodblocket under. Spelaren får då valet om hen vill använda föremålet. svaret sparas i den tomma stingen "svar".
         //För att säkerställa att användaren inte skriver in fel anropas meroden "InvalidAnswer" som finns i Shop.cs klassen. Denna metod 
         //föklaras mer utförligt vid själva metoden. Metoden är publik eftersom den refereras bortom denna metod, i game klassen. Desstuom 
-        //behövs ingenting retuneras och metoden är därför en void.
+        //behövs ingenting retuneras och metoden är därför en void. Metoden har två syften. Till att börja med skapat det mer spelmöjligheter
+        //för användaren. Desutom gör det möjligt för användaren att hålla sin tamagucthi vid liv. Om denna metod inte skulle finnas 
+        //finns inget anant sätt att mata tamagutchin. Gucthin skulle då dö av hunger.
         {
 
             bool containChokolate = inventory.Contains(shops.shopShelf[0]);
@@ -65,7 +69,7 @@ namespace Tamagotchi
             System.Console.WriteLine("Vill du använda din choklad? [Y/N]");
             string svar = Console.ReadLine();
 
-            svar = shops.InvalidAnswer(svar, "Y", "N"); //Metoden skickar in tre stycken parametrar. Svar är det ogiltiga svaret som 
+            svar = shops.InvalidAnswer(svar, "Y", "N"); //Metoden skickar in tre stycken parametrar. Svar är det svaret som 
                                                         //användaren skriver in. Y och N är de giltiga svaren som användaren måste skriva in.
                                                         //anledningen till varför denna metod anropas är för att unvika att spelaren skriver fel svar.
 
@@ -117,7 +121,7 @@ namespace Tamagotchi
         }
 
         public void Hi() //denna metod har i uppgift att skriva ut ett slumpmässigt ord till användaren. Till att börja med deffineras den 
-        //slupgnerator som skapades tidigare. Denna slupgenerator slupar en siffra mellan antalet ord i lisran "words" som består av alla ord
+        //slupgnerator som skapades tidigare. Denna slupgenerator slupar en siffra mellan antalet ord i listan "words" som består av alla ord
         //Gutchin kan. Count i words.count räknar upp alla platser i words. Därefter skrivs ordet ut som befinner sig på den platsen 
         //slumpegenratorn slumpade ordet. Därefter antroppar metoden metoden "ReduceBoredome" som minskar tamagutchins trågighet genom att 
         //addera 2 till variabeln boredom. Programet skriver ut vad som hände (trågigheten minskade. Denna metod är nödvändig eftersom den

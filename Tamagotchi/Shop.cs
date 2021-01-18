@@ -17,7 +17,7 @@ namespace Tamagotchi
     {
 
         private int money = 15; //Variabel för pengar som användaren kan köpa för. Den är prvat då den bara behövs användas i lokala uträkningar.
-        private int svarShop; // En int som är ett svar som bara används i affären. Den är den privat eftersom den även används bara lokalt
+        private int answerInt; // En int som är ett svar som bara används i affären. Den är den privat eftersom den även används bara lokalt
         public List<string> shopShelf = new List<string>() { "Choklad", "arg Lakris" }; //En lista som innehåller alla objekt som finns i
         //shoppen. Den är public eftersom den även används i klassen tamagutchi i komandor "contain" som kollar om användarens inventory har 
         //samma objekt som finns i shopen (föklaras mer utförligt vid det kodblocket). 
@@ -25,7 +25,7 @@ namespace Tamagotchi
         //private eftersom den bara används lokalt. 
         private List<int> likables = new List<int>() { 5, -1 }; //Det här är en lista som räknar upp älskvärdheten för det som finns i afären.
         // Den är private eftersom den bara används lokalt. 
-
+        private string answerString; //En tom string som soarar användarens svar. Den används bara lokalt och är därför private.
 
 
 
@@ -38,7 +38,7 @@ namespace Tamagotchi
             System.Console.WriteLine("Dina Pengar: " + money);
             for (int u = 0; u < shopShelf.Count; u++)
             {
-                System.Console.WriteLine(u + ". " + shopShelf[u]); 
+                System.Console.WriteLine(u + ". " + shopShelf[u]);
             }
         }
 
@@ -51,23 +51,24 @@ namespace Tamagotchi
         //Valet att välja mellan de olika objekten genom en string. Stringen omvandlas till en int genom en trypars. Detta är användbart för
         //att kunna använda svaret spelaren skrev in till att ta fram det objekt som finns i de olika listorna över objekten och dess egenskaper.
         //Därefter skrivs alla egenskaper över objektet upp såsom pris och vad hur mycket den gillas av användaresn gutchi. Tillsisst anroppas
-        //Metoden Buy som låter användaren bekräfta köpet. Här används även parametern som skickas in i metoden. 
+        //Metoden Buy som låter användaren bekräfta köpet. Här används även parametern som skickas in i metoden. Metoden ger användaren 
+        //möjlighet att se all information om föremålena i shopen och däremed bestämma vad hen ska köpa.
         {
             PrintShelf();
-                System.Console.WriteLine("Vilken vill du titta närmare på?");
-            string svarString = Console.ReadLine();
+            System.Console.WriteLine("Vilken vill du titta närmare på?");
+            answerString = Console.ReadLine();
 
-            svarString = InvalidAnswer(svarString, "0", "1");
-            bool lyckad = int.TryParse(svarString, out svarShop);
+            answerString = InvalidAnswer(answerString, "0", "1");
+            bool lyckad = int.TryParse(answerString, out answerInt);
 
 
-            if (svarShop == 0)
+            if (answerInt == 0)
             {
-                System.Console.WriteLine("Sak: " + shopShelf[0] + "\nÄlskvärd nivå: " + likables[svarShop] + "\npris: " + prizes[svarShop]); //Lägg till om den är posessed ... + "\nÄr den förbannad? " + isPosessedString
+                System.Console.WriteLine("Sak: " + shopShelf[0] + "\nÄlskvärd nivå: " + likables[answerInt] + "\npris: " + prizes[answerInt]); //Lägg till om den är posessed ... + "\nÄr den förbannad? " + isPosessedString
             }
-            else if (svarShop == 1)
+            else if (answerInt == 1)
             {
-                System.Console.WriteLine("Sak: " + shopShelf[1] + "\nÄlskvärd nivå: " + likables[svarShop] + "\npris: " + prizes[svarShop]); // + "\nÄr den förbannad? " + isPosessedString
+                System.Console.WriteLine("Sak: " + shopShelf[1] + "\nÄlskvärd nivå: " + likables[answerInt] + "\npris: " + prizes[answerInt]); // + "\nÄr den förbannad? " + isPosessedString
             }
             Console.ReadLine();
             Buy(tam);
@@ -76,58 +77,74 @@ namespace Tamagotchi
 
         private void Buy(Tamagotchi tam) //Den här metoden har som uppgift att ge valet till användaren om den vill köpa objektet eller 
         //inte. Om spelaren väljer att köpa det läggs det in i spelarens inventory som sedan kan användas. Metoden är igentligen en del av 
-        //Shopchoises metoden, men jag gjord eden separat eftersom den focuserade på ett eget område. Genom att dela upp det i två var det mindre kod
-        //per metod vilket dessutom gjorde det lättare att få en god överblick över koden. Metoden tar även in en paramter.
+        //Shopchoises metoden, men jag gjord eden separat eftersom den focuserade på ett eget område. Genom att dela upp det i två var det 
+        //mindre kod per metod vilket dessutom gjorde det lättare att få en god överblick över koden. Metoden tar även in en paramter.
         //Eftersom inventory finns i tamagutchii klassen behöver vi skapa en instans för att komma åt inventory. Eftersom en ny tamagutchi
         //inte ska skapas behövs en redan befintliga tamagutchin refereras till. Anars skulle objektet som användaren köppte läggas in i ett
         //Separat inventory i en annan tamagutchi, och man skulle därför inte kunna använda objektert. Metoden är en void eftersom ingenting
         //behövs retuneras. Metoden har som uppgift att bekräfta valet av köpet och lägga in obejtet i inventoryt. Desutom är den Privet då
-        //metoden bara används inom klassen "Shop" och inte behövs nå utanför. 
+        //metoden bara används inom klassen "Shop" och inte behövs nå utanför. Denna metod ger användaren även valet att hoppa av köpet ifall 
+        //användaren ångrade sig eller tryckte fel.
         {
-
-            System.Console.WriteLine("Vill du köpa? [Y/N]");
-            string svarString = Console.ReadLine();
-            svarString = InvalidAnswer(svarString, "Y", "N"); //Den anropar metoden invalid answer för att säkerställa att spelaren inte skriver 
-            //In ett ogilltigt svar. Den skickar in tre parametrar. Svarstring = svaret som sanvändaren skriver in, och de två giltiga svaren
-            //Y och N
-
-            if (svarString.ToUpper() == "Y")
+            if (money - prizes[answerInt] > 0) //Om pengarna - saken som man köper kostar, är högre än 0, har man råd med föremålet.
+            //Om man har råd kan man gå vidare och köpa. Detta har som syfte att förebygga att användaren köper massa saker även om användaren
+            //inte har råd.
             {
-                money = money - prizes[svarShop];
-                System.Console.WriteLine("Pengar kvar: " + money);
-                tam.inventory.Add(shopShelf[svarShop]); 
-                System.Console.WriteLine("Antal saker i ditt inventory: " + tam.inventory.Count);
+                System.Console.WriteLine("Vill du köpa? [Y/N]");
+                answerString = Console.ReadLine();
+                answerString = InvalidAnswer(answerString, "Y", "N"); //Den anropar metoden invalid answer för att säkerställa att spelaren inte skriver 
+                                                                      //In ett ogilltigt svar. Den skickar in tre parametrar. answerString = svaret som sanvändaren skriver in, och de två giltiga svaren
+                                                                      //Y och N
+
+                if (answerString.ToUpper() == "Y")
+                {
+                    money = money - prizes[answerInt];
+                    System.Console.WriteLine("Pengar kvar: " + money);
+                    tam.inventory.Add(shopShelf[answerInt]);
+                    System.Console.WriteLine("Antal saker i ditt inventory: " + tam.inventory.Count);
+
+                }
+                else if (answerString.ToUpper() == "N")
+                {
+                    System.Console.WriteLine("Oki");
+                }
 
             }
-            else if (svarString.ToUpper() == "N")
+            else  //Om pengarna man har - vad föremålet kostar inte är större än ett komenterar programmet på det och 
+            //köpet avbryts. Detta är för att användaren ska veta varför köpet avbröts.
             {
-                System.Console.WriteLine("Oki");
+                System.Console.WriteLine("Ledsen, du har inte råd... dina pengar är:");
+                System.Console.WriteLine(money + " kr");
+                Console.ReadLine();
+
             }
+
         }
 
 
-        public string InvalidAnswer(string svarWrong, string svarRight, string svarRigt2) //En metod som körs varje gång användaren skriver 
-        //fel svar. Metoden kör då en while loop som körs tills användaren skriver in rätt svar. För att se om användaren skriver in rätt svar
+        public string InvalidAnswer(string userAnswer, string answerRight, string answerRight2) //En metod som körs varje gång användaren skriver 
+        //in ett svar. Den har som två syften: att låta användaren bekräfta sitt svar och förhindra användaren från att skriva fel.
+        //Metoden kör då en while loop som körs tills användaren skriver in rätt svar. För att se om användaren skriver in rätt svar
         //Används en if sats. För att metoden ska vara generell och kunna appliceras för alla olika typer av svar tar metoden in tre parametrar.
-        //Den första parametetn "svarWrong" tar in det felaktiga svaret som spelaren har skrivit. Spelaren behöver skriva in olika svar
-        //I olika delar av spelet. Därför är det en parameter. Parameterarna svarRight och svarRight2 är två parametrar som används för att 
+        //Den första parametetn "userAnswer" Svaret som användaren(user)Skriver in. Spelaren behöver skriva in olika svar
+        //I olika delar av spelet. Därför är det en parameter. Parameterarna answerRight och answerRight2 är två parametrar som används för att 
         //Programet ska veta vilket som är de giltiga svaren. Dessa parametrar gör även metoden generell då användaren kan skriva vilket svar
         //som helst, men programet kan också skicka in vilka giltiga svar som helst.
-        //Metoden är public för att den ska kunna användas vartsomhelst. Metoden är desutom en string metod. Detta är i syfte att man programet
-        //ska kunna retunera det svar som spelaren svarade till den bit kod som efterfrågade efter ett giltigt svar. Om det skulle varit en
+        //Metoden är public för att den ska kunna användas vartsomhelst. Metoden är desutom en string metod. Detta är i syfte att programet
+        //ska kunna retunera det svar som spelaren svarade till den bit kod som anroppade metoden. Om det skulle varit en
         //Void hade inget svar retunerats till resten av koden. En int metod hade fungerat, men enbart för svar som krävs i siffror. 
 
         {
-            while (svarWrong.ToUpper() != svarRight || svarWrong.ToUpper() != svarRigt2)
+            while (userAnswer.ToUpper() != answerRight || userAnswer.ToUpper() != answerRight2)
             {
-                System.Console.WriteLine("Bekräfta [" + svarRight + "/" + svarRigt2 + "]");
-                svarWrong = Console.ReadLine();
-                if (svarWrong.ToUpper() == svarRight || svarWrong.ToUpper() == svarRigt2)
+                System.Console.WriteLine("Bekräfta [" + answerRight + "/" + answerRight2 + "]");
+                userAnswer = Console.ReadLine();
+                if (userAnswer.ToUpper() == answerRight || userAnswer.ToUpper() == answerRight2)
                 {
                     break;
                 }
             }
-            return svarWrong;
+            return userAnswer;
         }
 
 
