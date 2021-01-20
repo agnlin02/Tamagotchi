@@ -33,7 +33,9 @@ namespace Tamagotchi
             svar = Console.ReadLine(); //String variabeln "svar" har redan skapats tidigare i klassen. Denna bit kod lagrar det svar användaren
             //Skriver in i variabelnd "Svar". 
         }
-        public void Choises() //Denna metod har i uppgift att spela upp händelserna i spelet efter att användaren skrivit in sitt val. 
+        public void TheGame() //Denna metod har i uppgift att spela upp händelserna i spelet efter att användaren skrivit in sitt val. Det är
+        //i denna metod som hela spelet utspelrar sig i. Den är därför vikit då metoden "pusslar" ihop alla metoder från de olika klasserna 
+        //till ett spel.
         //Majoriteten av koden befinner sig inom en while loop. Detta gör det möjligt för spelaren att forsätta spelet ända tills 
         //tamaguthin dör. Loopen pågår tills boolen "isAlive" blir falsk, altså att tamagutchin dör. Därefter görs användarens svar om från
         //string till int. Detta är nödvändigt för att kunna se så att användaren skriver in ett svar med siffron och inte text, samt kunna
@@ -45,8 +47,8 @@ namespace Tamagotchi
         //I denna ifsats kollar programet vilket av alternativen spelaren valde. Beroende på vilket val användaren vade anroppas olika metoder.
         //Om användaren valde att mata sin tamagutchi anroppas feed metoden som finns i Tamagutchi klassen. Om användaren valde att handla i 
         //affären anropas metoden ShopChoises som finns i affärklassen. Eftersom alla metoder finns i separata klasser måste man först referera 
-        //till den instans man vill anropa metoden ifrån. Metoden Choises (som heter chocises eftersom metoden gåt ut på att låta användaren  
-        //göra ett val) är publik eftersom den anroppas i program.sc. Det är desurtom en void då den inte behöver
+        //till den instans man vill anropa metoden ifrån. Metoden TheGame (som heter TheGame eftersom metoden går ut på att inehålla hela spelet
+        //) är publik eftersom den anroppas i program.sc. Det är desurtom en void då den inte behöver
         //retunera något värde. 
         {
             while (minTimagotchi.isAlive == true) //Loppen körs tills boolen isAlive i klassen Tamagutchi blir falsk, altså att 

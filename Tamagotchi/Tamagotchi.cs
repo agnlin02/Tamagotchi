@@ -64,7 +64,7 @@ namespace Tamagotchi
 
         private int UseChokolate() //Denna metod går ut på att låta användaren använda chokladen (ifall det finns i spelarens inventory). 
         //Syftet med metoden är att låta spelaren känna att den får anvädning för de objekt hen köper. Desutom är det ett sätt att behålla 
-        //tamagutchin levande under en längre tid.
+        //tamagutchin levande under en längre tid. Metoden är en int då den behöver retunera inten hunger till resten av spelet.
         {
             System.Console.WriteLine("Vill du använda din choklad? [Y/N]");
             string svar = Console.ReadLine();

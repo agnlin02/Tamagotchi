@@ -12,7 +12,7 @@ namespace Tamagotchi
         {
 
             Game game = new Game(); //Eftersom Choises metoden ligger i shop klassen behövs en instans skapas för klassen.  
-            game.Choises();
+            game.TheGame();
           
         }
     }
