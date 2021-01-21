@@ -69,7 +69,7 @@ namespace Tamagotchi
             System.Console.WriteLine("Vill du använda din choklad? [Y/N]");
             string svar = Console.ReadLine();
 
-            svar = shops.InvalidAnswer(svar, "Y", "N"); //Metoden skickar in tre stycken parametrar. Svar är det svaret som 
+            svar = shops.ValidAnswer(svar, "Y", "N"); //Metoden skickar in tre stycken parametrar. Svar är det svaret som 
                                                         //användaren skriver in. Y och N är de giltiga svaren som användaren måste skriva in.
                                                         //anledningen till varför denna metod anropas är för att unvika att spelaren skriver fel svar.
 

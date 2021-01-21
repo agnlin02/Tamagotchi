@@ -58,7 +58,7 @@ namespace Tamagotchi
             System.Console.WriteLine("Vilken vill du titta närmare på?");
             answerString = Console.ReadLine();
 
-            answerString = InvalidAnswer(answerString, "0", "1");
+            answerString = ValidAnswer(answerString, "0", "1");
             bool lyckad = int.TryParse(answerString, out answerInt);
 
 
@@ -92,7 +92,7 @@ namespace Tamagotchi
             {
                 System.Console.WriteLine("Vill du köpa? [Y/N]");
                 answerString = Console.ReadLine();
-                answerString = InvalidAnswer(answerString, "Y", "N"); //Den anropar metoden invalid answer för att säkerställa att spelaren inte skriver 
+                answerString = ValidAnswer(answerString, "Y", "N"); //Den anropar metoden valid answer för att säkerställa att spelaren inte skriver 
                                                                       //In ett ogilltigt svar. Den skickar in tre parametrar. answerString = svaret som sanvändaren skriver in, och de två giltiga svaren
                                                                       //Y och N
 
@@ -122,7 +122,7 @@ namespace Tamagotchi
         }
 
 
-        public string InvalidAnswer(string userAnswer, string answerRight, string answerRight2) //En metod som körs varje gång användaren skriver 
+        public string ValidAnswer(string userAnswer, string answerRight, string answerRight2) //En metod som körs varje gång användaren skriver 
         //in ett svar. Den har som två syften: att låta användaren bekräfta sitt svar och förhindra användaren från att skriva fel.
         //Metoden kör då en while loop som körs tills användaren skriver in rätt svar. För att se om användaren skriver in rätt svar
         //Används en if sats. För att metoden ska vara generell och kunna appliceras för alla olika typer av svar tar metoden in tre parametrar.
